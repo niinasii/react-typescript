@@ -1,26 +1,35 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as React from 'react';
 import './App.css';
+import PersonComponent from './compotents/PersonComponent';
+export interface IAppProps {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
 }
 
-export default App;
+export interface IAppState {
+}
+
+export default class App extends React.Component<IAppProps, IAppState> {
+  constructor(props: IAppProps) {
+    super(props);
+
+    this.state = {
+    }
+  }
+
+  public render() {
+    const paikka = "Keilaranta, Espoo";
+    return (
+         <div className="App">
+      <header>
+        <h1>React Typescript</h1>
+        <h2>Postgres tietokannalla</h2>
+      </header>
+     <nav></nav>
+     <main>
+       <PersonComponent location={paikka}/>
+     </main>
+     <footer></footer>
+    </div>
+    );
+  }
+}
