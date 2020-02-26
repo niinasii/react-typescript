@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './App.css';
 import PersonComponent from './compotents/PersonComponent';
+import {Person} from './person'
 export interface IAppProps {
 
 }
@@ -18,6 +19,8 @@ export default class App extends React.Component<IAppProps, IAppState> {
 
   public render() {
     const paikka = "Keilaranta, Espoo";
+    let p1 = new Person(1, "Niina", "niina@joku.fi")
+    
     return (
          <div className="App">
       <header>
@@ -26,7 +29,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
       </header>
      <nav></nav>
      <main>
-       <PersonComponent location={paikka}/>
+       <PersonComponent location={paikka} person={p1}/>
      </main>
      <footer></footer>
     </div>
