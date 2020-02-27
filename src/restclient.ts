@@ -1,19 +1,17 @@
 // aka PeopleService
-
 import { Person } from './person';
-const axios = require('axios');
+import axios from 'axios';
 
 const apiUrl = "http://localhost:3000/api/people";
 
-function getPeople(callback:
-    (people: Person[]) => void) {
-    console.log("getPeople");
-    axios.get(apiUrl)
-        .then(function (list) { callback(list.data); });
+export function getPeople(callback:(people: Person[]) => void) {
+    axios.get(apiUrl).then(function (res) {
+        console.dir(res.data);
+        callback(res.data);
+    })
 }
 
-function createPerson(newPerson: Person,
-    callback: (status: number) => void) {
+export function luoPerson(newPerson: Person, callback: (status: number) => void) {
     axios.post(apiUrl, newPerson)
         .then(function (response) {
             console.dir(response);
@@ -21,12 +19,10 @@ function createPerson(newPerson: Person,
         });
 }
 
-function deletePerson(id: number) {
-    return axios.delete(apiUrl + "/" + id)
-        .then(res => {
+export function deletePerson(id: string):Promise <{}> {
+    return axios.delete(apiUrl+id).then(res => {
             console.log("Deleted");
             console.dir(res);
+            return res;
         });
 }
-
-export default {getPeople, createPerson, deletePerson};

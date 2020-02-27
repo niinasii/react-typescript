@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {Person} from '../person'
+import { Person } from '../person'
 
 export interface IPersonComponentProps {
-    location: string
-    person: Person
+  person: Person
 }
 
 export interface IPersonComponentState {
@@ -19,10 +18,17 @@ export default class PersonComponent extends React.Component<IPersonComponentPro
 
   public render() {
     return (
-      <div>
-        <h3>Hei, {this.props.location}</h3>
-        <section> {this.props.person.id}, {this.props.person.name}, {this.props.person.email}</section>
-      </div>
+      <tr>
+        <td>
+          {this.props.person.id}
+        </td>
+        <td>
+          {this.props.person.name}
+        </td>
+        <td>
+          {this.props.person.email}
+        </td>
+      </tr>
     );
   }
 }

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Person } from '../person'
+import PersonComponent from './PersonComponent';
 
 export interface IPersonListProps {
     people: Person[]
@@ -17,11 +18,15 @@ export default class PersonList extends React.Component<IPersonListProps, IPerso
     }
 
     public render() {
-        let lista = this.props.people.map(p => <li key={p.id}> {p.id}, {p.name}, {p.email}</li>)
+        let lista = this.props.people.map((p, ind) => {
+        return (<PersonComponent person={p} key={p.id}/>)
+        })
         return (
-            <div>
-                {lista}
-            </div>
+            <table>
+                <tbody>
+                    {lista}
+                </tbody>
+            </table>
         );
     }
 }
