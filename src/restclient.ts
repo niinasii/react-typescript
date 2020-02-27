@@ -2,11 +2,11 @@
 import { Person } from './person';
 import axios from 'axios';
 
-const apiUrl = "http://localhost:3000/api/people";
+const apiUrl = "http://localhost:5500/api/people";
 
 export function getPeople(callback:(people: Person[]) => void) {
     axios.get(apiUrl).then(function (res) {
-        console.dir(res.data);
+        // console.dir(res.data);
         callback(res.data);
     })
 }

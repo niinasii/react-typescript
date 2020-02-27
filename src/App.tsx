@@ -3,7 +3,7 @@ import './App.css';
 import PersonListComponent from './compotents/PersonListComponent';
 import PersonFormComponent from './compotents/PersonFormComponent';
 import { Person } from './person'
-import { getPeople, luoPerson, deletePerson } from './restclient';
+import { getPeople, luoPerson } from './restclient';
 export interface IAppProps {
 }
 
@@ -16,7 +16,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
     super(props);
 
     this.state = {
-      people: [p1, p2, p3]
+      people: []
     }
   }
 
@@ -24,25 +24,25 @@ export default class App extends React.Component<IAppProps, IAppState> {
     this.haeJaPaivita();
   }
 
-  haeJaPaivita = () => {
-    getPeople(lista => {
-      this.setState({ people: lista});
-    });
+  haeJaPaivita=()=> {
+    getPeople((people: Person[]) => {
+      this.setState({ people: people });
+    })
   }
-  
+
   addPerson = (newperson: Person) => {
-    luoPerson(newperson, (id:number) => {
+    luoPerson(newperson, (id: number) => {
       this.haeJaPaivita();
     })
   }
 
-/*
-  poista = (poistettavaID) => {
-    deletePerson(poistettavaID)
-      .then((response) => {
-        this.haeJaPaivita();
-      });
-  }*/
+  
+    // poista = (poistettavaID) => {
+    //   deletePerson(poistettavaID)
+    //     .then((response) => {
+    //       this.haeJaPaivita();
+    //     });
+    // }
 
   public render() {
     return (
@@ -61,6 +61,7 @@ export default class App extends React.Component<IAppProps, IAppState> {
   }
 }
 
+/*
 let p1 = new Person("1", "Niina", "niina@joku.fi");
 let p2 = new Person("2", "Marjut", "marjut@joku.fi");
-let p3 = new Person("3", "Hanna", "hanna@joku.fi");
+let p3 = new Person("3", "Hanna", "hanna@joku.fi");*/
