@@ -1,26 +1,67 @@
-import React from 'react';
-import logo from './logo.svg';
+import * as React from 'react';
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import PersonListComponent from './compotents/PersonListComponent';
+import PersonFormComponent from './compotents/PersonFormComponent';
+import { Person } from './person'
+import { getPeople, luoPerson } from './restclient';
+export interface IAppProps {
 }
 
-export default App;
+export interface IAppState {
+  people: Person[];
+}
+
+export default class App extends React.Component<IAppProps, IAppState> {
+  constructor(props: IAppProps) {
+    super(props);
+
+    this.state = {
+      people: []
+    }
+  }
+
+  componentDidMount = () => {
+    this.haeJaPaivita();
+  }
+
+  haeJaPaivita=()=> {
+    getPeople((people: Person[]) => {
+      this.setState({ people: people });
+    })
+  }
+
+  addPerson = (newperson: Person) => {
+    luoPerson(newperson, (id: number) => {
+      this.haeJaPaivita();
+    })
+  }
+
+  
+    // poista = (poistettavaID) => {
+    //   deletePerson(poistettavaID)
+    //     .then((response) => {
+    //       this.haeJaPaivita();
+    //     });
+    // }
+
+  public render() {
+    return (
+      <div className="App">
+        <header>
+          <h1>React Typescript</h1>
+        </header>
+        <nav></nav>
+        <main>
+          <PersonFormComponent addPerson={this.addPerson} />
+          <PersonListComponent people={this.state.people} />
+        </main>
+        <footer></footer>
+      </div>
+    );
+  }
+}
+
+/*
+let p1 = new Person("1", "Niina", "niina@joku.fi");
+let p2 = new Person("2", "Marjut", "marjut@joku.fi");
+let p3 = new Person("3", "Hanna", "hanna@joku.fi");*/
